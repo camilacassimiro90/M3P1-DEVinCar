@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
-using DEVinCar.Api.Data;
+
+using DEVinCar.Infra.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

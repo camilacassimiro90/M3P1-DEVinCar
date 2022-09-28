@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DEVinCar.Api.Data.Migrations
+namespace DEVinCar.Infra.Data.Migrations
 {
-    public partial class FixDeliveryTimestamp : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,7 +91,7 @@ namespace DEVinCar.Api.Data.Migrations
                         column: x => x.BuyerId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Sales_Users_SellerId",
                         column: x => x.SellerId,
@@ -129,7 +129,7 @@ namespace DEVinCar.Api.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: true),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     SaleId = table.Column<int>(type: "int", nullable: false)
                 },
