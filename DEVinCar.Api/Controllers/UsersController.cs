@@ -11,7 +11,7 @@ namespace DEVinCar.Api.Controllers;
 
 public class UserController : ControllerBase
 {
-    
+
     private readonly IUserService _userService;
 
     //public UserController(DevInCarDbContext context)

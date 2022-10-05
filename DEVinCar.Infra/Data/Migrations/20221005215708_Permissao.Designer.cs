@@ -4,6 +4,7 @@ using DEVinCar.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEVinCar.Infra.Data.Migrations
 {
     [DbContext(typeof(DevInCarDbContext))]
-    partial class DevInCarDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221005215708_Permissao")]
+    partial class Permissao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -467,7 +469,7 @@ namespace DEVinCar.Infra.Data.Migrations
                             Email = "jose@email.com",
                             Name = "Jose",
                             Password = "123456opp78",
-                            Role = 1
+                            Role = 0
                         },
                         new
                         {
@@ -476,7 +478,7 @@ namespace DEVinCar.Infra.Data.Migrations
                             Email = "andrea@email.com",
                             Name = "Andrea",
                             Password = "987dasd654321",
-                            Role = 2
+                            Role = 0
                         },
                         new
                         {
@@ -485,7 +487,7 @@ namespace DEVinCar.Infra.Data.Migrations
                             Email = "adao@email.com",
                             Name = "Adao",
                             Password = "2589asd",
-                            Role = 3
+                            Role = 0
                         },
                         new
                         {

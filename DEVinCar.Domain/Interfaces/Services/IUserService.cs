@@ -17,7 +17,7 @@ namespace DEVinCar.Domain.Interfaces.Services
         void Inserir(UserDTO user);
         void Excluir(int id);
         void Atualizar(UserDTO user);
-
         void Login(string email, string password);
+
     }
 }

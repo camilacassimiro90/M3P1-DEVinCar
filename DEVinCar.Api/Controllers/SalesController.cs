@@ -5,6 +5,7 @@ using DEVinCar.Infra.Data;
 using DEVinCar.Domain.ViewModels;
 using DEVinCar.Domain.Models;
 using DEVinCar.Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DEVinCar.Api.Controllers;
 
@@ -46,6 +47,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpPost("{saleId}/item")]
+    [Authorize(Roles = "Gerente, Vendedor")]
     public ActionResult<SaleCar> PostSale(
        [FromBody] SaleCarDTO body,
        [FromRoute] int saleId
