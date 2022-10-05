@@ -1,4 +1,6 @@
-﻿namespace DEVinCar.Domain.Models
+﻿using DEVinCar.Domain.DTOs;
+
+namespace DEVinCar.Domain.Models
  {
     public class State {
 
@@ -13,6 +15,21 @@
             Id = id;
             Name = name;
             Initials = initials;
+        }
+
+        public State(StateDTO state)
+        {
+            Id = state.Id;
+            Name = state.Name;
+            Initials = state.Initials;
+        }
+
+        public void Update(StateDTO state)
+        {
+            Id = state.Id;
+            Name = state.Name;
+            Initials = state.Initials;
+
         }
     }
 }

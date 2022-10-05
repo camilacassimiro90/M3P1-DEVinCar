@@ -1,4 +1,6 @@
-﻿namespace DEVinCar.Domain.Models
+﻿using DEVinCar.Domain.DTOs;
+
+namespace DEVinCar.Domain.Models
 {
   public class SaleCar
   {
@@ -16,5 +18,21 @@
     {
       return UnitPrice * (int)Amount;
     }
-  }
+
+        public SaleCar(SaleCarDTO salecar)
+        {
+            Id = salecar.Id;            
+            Amount = salecar.Amount;
+            CarId = salecar.CarId;
+            SaleId = salecar.SaleId;
+            
+        }
+        public void Update(SaleCarDTO salecar)
+        {
+            Id = salecar.Id;
+            Amount = salecar.Amount;
+            CarId = salecar.CarId;
+            SaleId = salecar.SaleId;
+        }
+    }
 }

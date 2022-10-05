@@ -1,4 +1,6 @@
-﻿namespace DEVinCar.Domain.Models
+﻿using DEVinCar.Domain.DTOs;
+
+namespace DEVinCar.Domain.Models
 {
     public class Sale
     {
@@ -12,6 +14,22 @@
         public virtual List<Delivery> Deliveries { get; set; }      
         public Sale()
         {
+        }
+
+        public Sale(SaleDTO sale)
+        {
+            Id = sale.Id;
+            SaleDate = sale.SaleDate;
+            BuyerId = sale.BuyerId;
+                        
+        }
+
+        public void Update(SaleDTO sale)
+        {
+            Id = sale.Id;
+            SaleDate = sale.SaleDate;
+            BuyerId = sale.BuyerId;
+
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using DEVinCar.Api.DTOs;
-using DEVinCar.Domain.ViewModels;
+﻿using DEVinCar.Domain.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using DEVinCar.Infra.Data;
 using DEVinCar.Domain.Models;
+using DEVinCar.Domain.DTOs;
 
 namespace DEVinCar.Api.Controllers;
 
@@ -70,6 +70,7 @@ public class StatesController : ControllerBase
 
         var address = new Address
         {
+            
             CityId = cityId,
             Street = body.Street,
             Number = body.Number,
