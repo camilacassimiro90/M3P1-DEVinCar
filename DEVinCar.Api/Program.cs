@@ -78,8 +78,9 @@ if (app.Environment.IsDevelopment())
 // comentando para conseguir trabalhar com Insomnia/Postman via http comum
 //app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();

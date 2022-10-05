@@ -14,21 +14,20 @@ namespace DEVinCar.Infra.Data.Repositories
         {
             return _contexto.Users.Where(u => u.Name == nome).ToList();
         }
-        //public User ObterPorEmail(string email)
-        //{
-        //    return _contexto.Users.FirstOrDefault(u => u.Email == email);
-        //}
+
         public User ObterPorEmail(string email)
         {
             return _contexto.Users.FirstOrDefault(u => u.Email == email);
         }
 
-        public  User Login(string email, string password)
+        public User Login(string email, string password)
         {
             return _contexto.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
         }
 
-      
-
+        public User ObterPorEmail(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

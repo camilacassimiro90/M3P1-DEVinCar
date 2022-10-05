@@ -45,7 +45,7 @@ namespace DEVinCar.Domain.Models
 
         }
 
-         public User(int id, string email, string password, string name, DateTime birthDate, Permissoes role) : this(id, email, password, name, birthDate)
+        public User(int id, string email, string password, string name, DateTime birthDate, Permissoes role) : this(id, email, password, name, birthDate)
         {
             Role = role;
         }
