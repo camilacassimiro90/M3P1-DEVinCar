@@ -1,7 +1,8 @@
 
-using DEVinCar.Api.Data;
-using DEVinCar.Api.DTOs;
-using DEVinCar.Api.Models;
+using DEVinCar.Domain.DTOs;
+using DEVinCar.Domain.Interfaces.Services;
+using DEVinCar.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DEVinCar.Api.Controllers;
@@ -10,109 +11,88 @@ namespace DEVinCar.Api.Controllers;
 [Route("api/car")]
 public class CarController : ControllerBase
 {
-    private readonly DevInCarDbContext _context;
+    private readonly ICarService _carService;
 
-    public CarController(DevInCarDbContext context)
+    public CarController(ICarService carService)
     {
-        _context = context;
+
+        _carService = carService;
     }
-
-    [HttpGet("{carId}")]
-    public ActionResult<Car> GetById([FromRoute] int carId)
+  
+    [HttpGet("{id}")]
+    public ActionResult<Car> GetPorId(
+    [FromRoute] int id)
     {
-        var car = _context.Cars.Find(carId);
+        var car = _carService.ObterPorId(id);
         if (car == null) return NotFound();
         return Ok(car);
     }
-
+        
+    
     [HttpGet]
     public ActionResult<List<Car>> Get(
-        [FromQuery] string name,
-        [FromQuery] decimal? priceMin,
-        [FromQuery] decimal? priceMax
-    )
+    [FromQuery] string name,
+    [FromQuery] decimal? priceMin,
+    [FromQuery] decimal? priceMax
+)
     {
-        var query = _context.Cars.AsQueryable();
-        if (!string.IsNullOrEmpty(name))
-        {
-            query = query.Where(c => c.Name.Contains(name));
-        }
-        if (priceMin > priceMax)
-        {
-            return BadRequest();
-        }
-        if (priceMin.HasValue)
-        {
-            query = query.Where(c => c.SuggestedPrice >= priceMin);
-        }
-        if (priceMax.HasValue)
-        {
-            query = query.Where(c => c.SuggestedPrice <= priceMax);
-        }
-        if (!query.ToList().Any())
+        var cars = _carService.ObterTodos(name, priceMin, priceMax);
+        if (!cars.Any())
         {
             return NoContent();
         }
-        return Ok(query.ToList());
+        return Ok(cars);
     }
-
+    [Authorize(Roles = "Gerente")]
     [HttpPost]
     public ActionResult<Car> Post(
-        [FromBody] CarDTO body
-    )
+      [FromBody] CarDTO car
+  )
     {
-        if (_context.Cars.Any(c => c.Name == body.Name || body.SuggestedPrice <= 0))
-        {
-            return BadRequest();
-        }
-        var car = new Car
-        {
-            Name = body.Name,
-            SuggestedPrice = body.SuggestedPrice,
-        };
-        _context.Cars.Add(car);
-        _context.SaveChanges();
+
+        _carService.Inserir(car);
         return Created("api/car", car);
     }
 
-    [HttpDelete("{carId}")]
-    public ActionResult Delete([FromRoute] int carId)
+    
+    [HttpDelete("{id}")]
+    public ActionResult Delete(
+     [FromRoute] int id)
     {
-        var car = _context.Cars.Find(carId);
-        var soldCar = _context.SaleCars.Any(s => s.CarId == carId);
-        if (car == null)
-        {
-            return NotFound();
-        }
-        if (soldCar)
-        {
-            return BadRequest();
-        }
-        _context.Remove(car);
-        _context.SaveChanges();
-        return NoContent();
+
+        _carService.Excluir(id);
+        //_cacheServicePorId.Remove($"{id}");
+        return StatusCode(StatusCodes.Status204NoContent);
+
     }
 
-    [HttpPut("{carId}")]
-    public ActionResult<Car> Put([FromBody] CarDTO carDto, [FromRoute] int carId)
+    [HttpPut("{id}")]
+    public ActionResult<Car> Put(
+        [FromBody] CarDTO car,
+        [FromRoute] int id)
     {
-        var car = _context.Cars.Find(carId);
-        var name = _context.Cars.Any(c => c.Name == carDto.Name && c.Id != carId);
 
+        //car.Id = id;
+        _carService.Atualizar(car);
+        // _cacheServicePorId.Remove($"{materiaId}");
 
-        if (car == null)
-            return NotFound();
-        if (carDto.Name.Equals(null) || carDto.SuggestedPrice.Equals(null))
-            return BadRequest();
-        if (carDto.SuggestedPrice <= 0)
-            return BadRequest();
-        if (name)
-            return BadRequest();
+        //_cacheServicePorNome.Remove(materia.Nome);
+        //var car = _carService.ObterPorId(id);
+        var name = _carService.ObterPorNome(car.Name);
 
-        car.Name = carDto.Name;
-        car.SuggestedPrice = carDto.SuggestedPrice;
+        return StatusCode(StatusCodes.Status201Created);
 
-        _context.SaveChanges();
-        return NoContent();
+        //var oldcar = _carService.Atualizar(car, id)
+        //var name = _carService.Any(c => c.Name == car.Name && c.Id != carId);
+        //if (car == null)
+        //    return NotFound();
+        //if (oldcar.Name.Equals(null) || oldcar.SuggestedPrice.Equals(null))
+        //    return BadRequest();
+        //if (car.SuggestedPrice <= 0)
+        //    return BadRequest();
+        //if (name)
+        //    return BadRequest();
+        //car.Name = car.Name;
+        //car.SuggestedPrice = car.SuggestedPrice;
     }
 }
