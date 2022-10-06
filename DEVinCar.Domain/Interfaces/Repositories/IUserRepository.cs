@@ -13,6 +13,6 @@ namespace DEVinCar.Domain.Interfaces.Repositories
         IQueryable<User> Query();
         public User ObterPorEmail(string email, string password);
         public User ObterPorEmail(string email);
-        // public User Login(string email, string password);
+        
     }
 }

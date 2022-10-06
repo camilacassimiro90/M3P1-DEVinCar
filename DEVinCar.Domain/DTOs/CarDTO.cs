@@ -18,7 +18,7 @@ namespace DEVinCar.Domain.DTOs
 
         public CarDTO(Car car)
         {
-            //Id = car.Id;
+            
             Name = car.Name;
             SuggestedPrice = car.SuggestedPrice;
 

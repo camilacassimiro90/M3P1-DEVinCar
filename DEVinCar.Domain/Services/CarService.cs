@@ -68,10 +68,7 @@ namespace DEVinCar.Domain.Services
             {
                 query = query.Where(c => c.Name.Contains(name));
             }
-            //if (priceMin > priceMax)
-            //{
-            //    return BadRequest();
-            //}
+           
             if (priceMin.HasValue)
             {
                 query = query.Where(c => c.SuggestedPrice >= priceMin);

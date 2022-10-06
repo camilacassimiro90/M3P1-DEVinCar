@@ -87,11 +87,7 @@ namespace DEVinCar.Domain.Services
             throw new NotImplementedException();
         }
 
-        //     public void Login(string email, string password)
-        //     {
-        //         var userLogin = _userRepository.Login(email, password);
-        //        _userRepository.Inserir(new User(userLogin));
-        //    }
+        
 
     }
 }
