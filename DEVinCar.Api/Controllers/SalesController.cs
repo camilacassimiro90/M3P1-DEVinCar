@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace DEVinCar.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/sales")]
 public class SalesController : ControllerBase

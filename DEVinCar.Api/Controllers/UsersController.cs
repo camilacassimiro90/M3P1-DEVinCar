@@ -2,10 +2,12 @@
 using DEVinCar.Domain.Interfaces.Services;
 using DEVinCar.Domain.Models;
 using DEVinCar.Infra.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DEVinCar.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/user")]
 

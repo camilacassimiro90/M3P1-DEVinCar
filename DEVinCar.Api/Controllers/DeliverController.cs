@@ -2,12 +2,14 @@
 using DEVinCar.Domain.DTOs;
 using DEVinCar.Domain.Models;
 using DEVinCar.Infra.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Runtime.ConstrainedExecution;
 
 namespace DEVinCar.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/deliver")]
     public class DeliverController : ControllerBase
