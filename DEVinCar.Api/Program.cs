@@ -8,6 +8,7 @@ using DEVinCar.Domain.Services;
 using DEVinCar.Infra.Data;
 using DEVinCar.Infra.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,14 @@ builder.Services.AddAuthentication(x =>//authentication
         ValidateIssuer = false,
         ValidateAudience = false
     };
+});
+
+//JSON to XML
+builder.Services.AddMvc(config =>
+{
+    config.ReturnHttpNotAcceptable = true;
+    config.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+    config.InputFormatters.Add(new XmlDataContractSerializerInputFormatter(config));
 });
 
 builder.Services.AddDbContext<DevInCarDbContext>();
