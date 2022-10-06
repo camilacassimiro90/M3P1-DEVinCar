@@ -4,9 +4,11 @@ using DEVinCar.Infra.Data;
 using DEVinCar.Domain.Models;
 using DEVinCar.Domain.ViewModels;
 using DEVinCar.Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DEVinCar.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/address")]
 
